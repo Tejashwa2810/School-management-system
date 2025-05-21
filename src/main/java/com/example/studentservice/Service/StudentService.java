@@ -5,6 +5,7 @@ import com.example.studentservice.Controller.TeacherClient;
 import com.example.studentservice.DTO.TeacherDTO;
 import com.example.studentservice.Models.Course;
 import com.example.studentservice.Models.Student;
+import com.example.studentservice.Repository.CourseRepository;
 import com.example.studentservice.Repository.StudentRepository;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.CacheEvict;
@@ -20,11 +21,13 @@ public class StudentService {
     private final StudentRepository studentRepository;
     private final TeacherClient teacherClient;
     private final CourseClient courseClient;
+    private final CourseRepository courseRepository;
 
-    public StudentService(StudentRepository studentRepository, TeacherClient teacherClient, CourseClient courseClient) {
+    public StudentService(StudentRepository studentRepository, TeacherClient teacherClient, CourseClient courseClient, CourseRepository courseRepository) {
         this.studentRepository = studentRepository;
         this.teacherClient = teacherClient;
         this.courseClient = courseClient;
+        this.courseRepository = courseRepository;
     }
 
     @Cacheable(value = "students", key = "#id")
